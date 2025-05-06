@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+.bg-image{
+    background-image: url("../public/background.png");
+    background-position: center;
+    background-size: cover;
+}
+.paddingCnt{
+    padding: 30px 10%;
+}
+
+
+.bg-imageLading{
+    background-image: url("../public/background.png");
+    background-position: center;
+    background-size: cover;
+    border-bottom-left-radius: 10%;
+    border-bottom-right-radius: 10%;
+}
