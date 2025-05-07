@@ -16,7 +16,7 @@ const LandingContent = () => {
                 <div className="bg-white text-gray-900 p-3 rounded-full">
                 <Watch className='text-blue-400' />
                 </div>
-                <p className='text-gray-800'>Watch how it works</p>
+                <p className='text-gray-400'>Watch how it works</p>
              </div>
         </div>
         <div className="">b</div>

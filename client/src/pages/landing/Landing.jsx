@@ -9,7 +9,7 @@ import Footer from '../../components/Footer'
 const Landing = () => {
   return (
     <>
-    <div className="w-full h-[80vh] bg-imageLading text-white">
+  <div className="w-full h-[100vh] bg-imageLading text-white">
     <LandingHeader/>
     {/*  */}
       <div className="mt-20">

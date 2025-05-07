@@ -40,7 +40,7 @@ const LandingInfo = () => {
         </div>
         <div className="">
           <iframe 
-          width={500}
+          width={400}
           height={315}
           src="https://www.youtube.com/embed/hRUJ41rdp4M"
            frameborder="0"
