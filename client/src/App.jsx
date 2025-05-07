@@ -5,6 +5,7 @@ import Login from './pages/auth/login/Login'
 import ForgotPassword from './pages/auth/forgotPassword/ForgotPassword'
 import ResetPassword from './pages/auth/resetPassword/ResetPassword'
 import Landing from './pages/landing/Landing'
+import Blog from './pages/blog/Blog'
 const App = () => {
   return (
     <>
@@ -14,6 +15,7 @@ const App = () => {
         <Route path='/forgot-password' element={<ForgotPassword/>} />
         <Route path='/reset-password' element={<ResetPassword/>} />
         <Route path='/landing' element={<Landing/>} />
+        <Route path='/blog' element={<Blog/>} />
       </Routes>
     </>
   )
