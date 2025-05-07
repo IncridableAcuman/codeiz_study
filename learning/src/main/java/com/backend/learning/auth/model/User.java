@@ -46,8 +46,8 @@ public class User implements Serializable {
     @Enumerated(EnumType.STRING)
     private Role role=Role.USER;
 
-    private boolean isActive=false;
+    private boolean isActive=false;//userni faolligini bildiradi
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
-    private List<Token> tokens=new ArrayList<>();
+    private List<Token> tokens=new ArrayList<>();// tokenlarni list qilib saqlash yani access va refresh tokenlarni
 }

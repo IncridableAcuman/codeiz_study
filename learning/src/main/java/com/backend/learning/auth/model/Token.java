@@ -31,13 +31,13 @@ public class Token implements Serializable {
     private UUID id;
 
     @Column(unique = true)
-    private String token;
+    private String token;// token
 
     @Enumerated(EnumType.STRING)
-    private TokenType tokenType=TokenType.BEARER;
+    private TokenType tokenType=TokenType.BEARER;//tokenning type asosan bearer qilamiz headerdan olamiz
 
-    private boolean expired=false;
-    private boolean revoked=false;
+    private boolean expired=false;// muddatini tekshirish
+    private boolean revoked=false;// tokenni yaroqliligini tekshirish
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
