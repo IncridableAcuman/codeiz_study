@@ -9,7 +9,7 @@ const Login = () => {
   const navigate=useNavigate();
   return (
     <>
-    <div className="bg-image w-full min-h-screen  flex flex-col items-center justify-center">
+    <div className="bg-image w-full min-h-screen  flex flex-col items-center justify-center p-3">
       <div className="bg-white w-full max-w-md rounded shadow-lg p-6">
         <div className="">
           <h1 className='text-3xl font-bold text-center mb-3'>{isLogin ? "Sign In" : "Sign Up"}</h1>
@@ -60,10 +60,10 @@ const Login = () => {
           </div>
           {isLogin ? (
                     <p className='text-center text-sm mt-3'>Don't have an account? 
-                    <span className='cursor-pointer font-semibold text-gray-600 hover:underline' onClick={()=>setIsLogin(false)}>Sign Up</span></p>
+                    <span className='cursor-pointer font-semibold text-gray-600 hover:underline' onClick={()=>setIsLogin(false)}> Sign Up</span></p>
           )        : (
                     <p className='text-center text-sm mt-3'>Already have an account? 
-                    <span className='cursor-pointer font-semibold text-gray-600 hover:underline' onClick={()=>setIsLogin(true)}>Sign In</span></p>
+                    <span className='cursor-pointer font-semibold text-gray-600 hover:underline' onClick={()=>setIsLogin(true)}> Sign In</span></p>
           )}
         </div>
       </div>
