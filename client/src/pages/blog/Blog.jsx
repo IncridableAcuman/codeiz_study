@@ -3,7 +3,9 @@ import Navbar from '../../components/Navbar'
 import BlogHeader from './BlogHeader'
 import BlogList from './BlogList'
 import RelatedBlog from './RelatedBlog'
-
+import { ArrowLeft, ArrowRight } from 'lucide-react'
+import ArticilesBlog from './ArticilesBlog'
+import Footer from '../../components/Footer'
 const Blog = () => {
   return (
     <>
@@ -28,10 +30,23 @@ const Blog = () => {
             </div>
             {/* Related blog */}
             <div className="px-4 sm:px-6 lg:px-8">
-            <RelatedBlog/>
+              <RelatedBlog/>
+              <div className="flex items-center justify-between">
+                <div className=""></div>
+                <div className="flex items-center gap-2 pr-5">
+                  <ArrowLeft size={20} className='bg-slate-400 rounded cursor-pointer text-white'/>
+                  <ArrowRight size={20} className='bg-slate-400 rounded cursor-pointer'/>
+                </div>
+              </div>
             </div>
+            {/* Aritciles */}
           </div>
+          <div className="paddingCnt">
+              <ArticilesBlog/>
+            </div>
     </div>
+      {/* footer */}
+      <Footer/>
     </>
   )
 }
