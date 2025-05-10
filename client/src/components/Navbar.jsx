@@ -15,7 +15,6 @@ const Navbar = () => {
             <a href="#" className='hover:text-gray-400 transition duration-300'>About Us</a>
             {/* profile */}
       <div className="flex items-center gap-2">
-        <img src="./d.png" alt="profile" className='w-12 h-12 rounded-full' />
         <EllipsisVertical className='cursor-pointer text-gray-400 hover:text-gray-950 transition duration-300'/>
       </div>
       {/* profile end */}
