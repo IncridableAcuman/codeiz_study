@@ -9,7 +9,7 @@ const Sidebar = () => {
     ]
   return (
     <>
-    <div className="w-64 h-screen bg-gradient-to-br from-gray-100 via-slate-200 to-gray-200 border-r">
+    <div className="w-64 min-h-screen bg-gradient-to-br from-gray-100 via-slate-200 to-gray-200 border-r">
         <div className="pt-5">
             {
                 data.map((item,index)=>(
