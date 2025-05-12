@@ -30,4 +30,17 @@ public class AuthController {
     public ResponseEntity<AuthResponse> refresh(String token){
         return ResponseEntity.ok(authService.refresh(token));
     }
+    // logout
+    public ResponseEntity<String> logout(String token){
+        authService.logout(token);
+        return ResponseEntity.ok("User logged out");
+    }
+    // forgot password
+    public ResponseEntity<String> forgotPassword(@RequestBody String email){
+        return ResponseEntity.ok(authService.forgotPassword(email));
+    }
+    // reset password
+    public ResponseEntity<String> resetPassword(@RequestBody String password,String token){
+        return ResponseEntity.ok(authService.resetPassword(password, token));
+    }
 }

@@ -25,6 +25,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
+    private final MailService mailService;
     // user sign Up
     public AuthResponse register(RegisterRequest request){
         User user=new User();
@@ -77,14 +78,32 @@ public class AuthService {
     }
     // sign Out 
     public void logout(String token){
-
+        Token token2=tokenRepository.findByToken(token).orElseThrow(()->new RuntimeException("Token not found"));
+        token2.setRevoked(true);
+        tokenRepository.save(token2);
     }
     // forgot password
     public String forgotPassword(String email){
-
+        if(email==null || email.isEmpty()){
+            throw new RuntimeException("Email should be required");
+        }
+        User user=userRepository.findByEmail(email).orElseThrow(()->new RuntimeException("User not found"));
+        String token=tokenService.generateToken(email);
+        String resetLink="http://localhost:5173/reset-password?token="+token;
+        mailService.sendMail(user.getEmail(), "Forgot Password with codeiz_study", "CLick to this link for your account activation:"+resetLink);
+        return "Reset password link sent to your email";
     }
     // reset password
     public String resetPassword(String password,String token){
-        
+        String email=tokenService.extractEmail(token);
+        User user=userRepository.findByEmail(email).orElseThrow(()->new RuntimeException("User not found"));
+        user.setPassword(passwordEncoder.encode(password));
+        userRepository.save(user);
+
+        tokenRepository.findByToken(token).ifPresent(t->{
+           t.setRevoked(true);
+            tokenRepository.save(t);
+        });
+        return "Password reset successfully";
     }
 }
