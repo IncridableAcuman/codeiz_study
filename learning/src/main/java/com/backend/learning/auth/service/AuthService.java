@@ -1,6 +1,7 @@
 package com.backend.learning.auth.service;
 
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,7 @@ public class AuthService {
     }
     // user sign In
     public AuthResponse login(AuthRequest request){
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         User user=userRepository.findByEmail(request.getEmail()).orElseThrow(()-> new RuntimeException("User not found"));
         if(!passwordEncoder.matches(user.getPassword(), request.getPassword())){
             throw new RuntimeException("Password incorrect!");
