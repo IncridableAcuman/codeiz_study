@@ -26,4 +26,8 @@ public class AuthController {
     public ResponseEntity<AuthResponse> logni(@RequestBody AuthRequest request){
         return ResponseEntity.ok(authService.login(request));
     }
+    // refresh
+    public ResponseEntity<AuthResponse> refresh(String token){
+        return ResponseEntity.ok(authService.refresh(token));
+    }
 }

@@ -58,7 +58,22 @@ public class AuthService {
     }
     // refresh 
     public AuthResponse refresh(String token){
+        if(token.isEmpty() || token==null){
+            throw new RuntimeException("Token not found or null");
+        }
+        String email=tokenService.extractEmail(token);
+        if(email==null) throw new RuntimeException("Invalid token");
 
+        User user=userRepository.findByEmail(email).orElseThrow(()-> new RuntimeException("User not found"));
+        Token token2=tokenRepository.findByToken(token).orElseThrow(()->new RuntimeException("Token not found"));
+        token2.setRevoked(true);
+        tokenRepository.save(token2);
+        String newToken=tokenService.generateToken(email);
+        Token token3=new Token();
+        token3.setToken(newToken);
+        token3.setUser(user);
+        tokenRepository.save(token3);
+        return new AuthResponse(newToken);
     }
     // sign Out 
     public void logout(String token){
