@@ -1,22 +1,22 @@
-import React from 'react'
- import Navbar from '../components/Navbar'
-import Sidebar from '../components/Sidebar'
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+import Sidebar from '../components/Sidebar';
+import EnrolledNavbar from '../components/EnrolledNavbar';
+
 const MainLayout = () => {
   return (
     <>
-    <Navbar/>
-<div className="flex h-screen">
-      <Sidebar/>
-    <div className="flex flex-col flex-1">
-        <div className="p-4 overflow-auto flex-1">
-            <Outlet/>
+      <EnrolledNavbar/>
+      <div className="flex h-screen overflow-hidden">
+        <div className="hidden lg:block">
+        <Sidebar />          
         </div>
-    </div>
-    </div>    
+        <div className="flex-1 overflow-y-auto p-4 ml-0 md:ml-64">
+          <Outlet />
+        </div>
+      </div>
     </>
-    
-  )
-}
+  );
+};
 
-export default MainLayout
+export default MainLayout;

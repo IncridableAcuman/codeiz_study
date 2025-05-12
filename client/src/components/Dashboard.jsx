@@ -1,67 +1,66 @@
 import { User, Book } from 'lucide-react';
 
 const Dashboard = () => {
-  const defaultEnrollments = [
-    {
-      id: 1,
-      name: 'Richard Sanford',
-      course: 'Build Text to Image SaaS App in React JS',
-      date: '11 May, 2025',
-    },
-  ];
-  const content=[
-    {icon:<User size={40}/>,title:"User",count:5},
-     {icon:<Book size={40}/>,title:"Courses",count:12},
-  ]
+const stats = [
+  { title: 'Total Enrolments', value: 14, icon: '👥' },
+  { title: 'Total Courses', value: 8, icon: '📚' },
+  { title: 'Total Earnings', value: '$245', icon: '💰' },
+];
 
-  const data = defaultEnrollments;
+const enrolments = [
+  { id: 1, name: 'Richard Sanford', avatar: '/avatars/user1.png', course: 'Build Text to image SaaS App in React JS', date: '22 Aug, 2024' },
+  { id: 2, name: 'Enrique Murphy', avatar: '/avatars/user2.png', course: 'Build AI BG Removal SaaS App in React JS', date: '22 Aug, 2024' },
+  { id: 3, name: 'Alison Powell', avatar: '/avatars/user3.png', course: 'React Router Complete Course in One Video', date: '25 Sep, 2024' },
+  { id: 4, name: 'Richard Sanford', avatar: '/avatars/user1.png', course: 'Build Full Stack E-Commerce App in React JS', date: '15 Oct, 2024' },
+  { id: 5, name: 'Enrique Murphy', avatar: '/avatars/user2.png', course: 'Build AI BG Removal SaaS App in React JS', date: '22 Aug, 2024' },
+  { id: 6, name: 'Alison Powell', avatar: '/avatars/user3.png', course: 'React Router Complete Course in One Video', date: '25 Sep, 2024' },
+  { id: 7, name: 'Richard Sanford', avatar: '/avatars/user1.png', course: 'Build Full Stack E-Commerce App in React JS', date: '15 Oct, 2024' },
+];
   return (
     <>
-     <div className="w-full max-w-4xl mx-auto p-4">
-      <div className="flex items-center gap-5 p-4 sm:p-6 lg:p-8">
-        {
-          content.map((item,index)=>(
-            <div className="border border-gray-400 px-5 py-4" key={index}>
-              <div className="flex items-center gap-3">
-                <p className='text-gray-500'>{item.icon}</p>
-                <p className='text-gray-600 text-3xl font-bold'>{item.count}</p>
-              </div>
-              <p>{item.title}</p>
+    <div className="p-6 space-y-8">
+      
+      {/* Stat Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {stats.map((stat, index) => (
+          <div key={index} className="border rounded-xl shadow p-5 flex items-center space-x-4">
+            <div className="text-3xl">{stat.icon}</div>
+            <div>
+              <div className="text-2xl font-semibold">{stat.value}</div>
+              <div className="text-gray-600">{stat.title}</div>
             </div>
-          ))
-        }
+          </div>
+        ))}
       </div>
-      {/* card */}
+
+      {/* Enrolments Table */}
       <div className="overflow-x-auto">
-        <table className="min-w-full border border-gray-300 bg-white shadow-sm rounded-lg">
+        <h2 className="text-xl font-semibold mb-4">Latest Enrolments</h2>
+        <table className="min-w-full border border-gray-300 rounded-md overflow-hidden">
           <thead className="bg-gray-100">
             <tr>
-              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700" scope="col">
-                #
-              </th>
-              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700" scope="col">
-                Student Name
-              </th>
-              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700" scope="col">
-                Course Title
-              </th>
-              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700" scope="col">
-                Date
-              </th>
+              <th className="text-left px-4 py-2">#</th>
+              <th className="text-left px-4 py-2">Student name</th>
+              <th className="text-left px-4 py-2">Course Title</th>
+              <th className="text-left px-4 py-2">Date</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((student, index) => (
-              <tr key={student.id || index} className="border-t hover:bg-gray-50">
-                <td className="px-4 py-2 text-sm text-gray-600">{index + 1}</td>
-                <td className="px-4 py-2 text-sm text-gray-600">{student.name}</td>
-                <td className="px-4 py-2 text-sm text-gray-600">{student.course}</td>
-                <td className="px-4 py-2 text-sm text-gray-600">{student.date}</td>
+            {enrolments.map((entry, index) => (
+              <tr key={entry.id} className="border-t hover:bg-gray-50">
+                <td className="px-4 py-2">{index + 1}</td>
+                <td className="px-4 py-2 flex items-center gap-2">
+                  <img src={entry.avatar} alt={entry.name} className="w-8 h-8 rounded-full" />
+                  {entry.name}
+                </td>
+                <td className="px-4 py-2">{entry.course}</td>
+                <td className="px-4 py-2">{entry.date}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
     </div>
     </>
   )

@@ -1,43 +1,92 @@
-import React from 'react'
-import { UploadCloud } from 'lucide-react'
+import React, { useState } from 'react';
+import { UploadCloud } from 'lucide-react';
+
 const AddCourse = () => {
+  const [thumbnail, setThumbnail] = useState(null);
+
+  const handleThumbnailChange = (e) => {
+    setThumbnail(e.target.files[0]);
+  };
+
   return (
-    <>
-    <div className="w-full max-w-md px-4 sm:px-6 lg:px-8">
-      <form className='space-y-4'>
-        <div className="flex flex-col">
-        <label className='pb-2'>Course Title</label>
-        <input type="text" placeholder='Type here' className='border-2 border-gray-300 p-2.5 outline-none' />
+    <div className="w-full max-w-2xl mx-auto px-4 py-6">
+      <form className="space-y-6 bg-white p-6 rounded-lg shadow-md">
+        <h2 className="text-xl font-semibold">Add New Course</h2>
+
+        {/* Course Title */}
+        <div>
+          <label htmlFor="title" className="block text-sm font-medium mb-1">Course Title</label>
+          <input
+            id="title"
+            type="text"
+            placeholder="Type course title"
+            className="w-full border border-gray-300 p-3 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
+          />
         </div>
-        {/* 2 */}
-        <div className="flex flex-col">
-        <label className='pb-2'>Course Headings</label>
-        <input type="text" placeholder='Type here' className='border-2 border-gray-300 p-2.5 outline-none' />
+
+        {/* Course Headline */}
+        <div>
+          <label htmlFor="headline" className="block text-sm font-medium mb-1">Course Headline</label>
+          <input
+            id="headline"
+            type="text"
+            placeholder="Short headline"
+            className="w-full border border-gray-300 p-3 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
+          />
         </div>
-        {/* 3 */}
-        <div className="flex flex-col">
-        <label className='pb-2'>Course Title</label>
-        <textarea placeholder='Type here' className='border-2 border-gray-300 p-2.5 outline-none'></textarea>
+
+        {/* Course Description */}
+        <div>
+          <label htmlFor="description" className="block text-sm font-medium mb-1">Course Description</label>
+          <textarea
+            id="description"
+            rows="4"
+            placeholder="Describe the course..."
+            className="w-full border border-gray-300 p-3 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
+          ></textarea>
         </div>
-        {/* 4 */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-5">
-        <div className="flex flex-col">
-        <label className='pb-2'>Course Headings</label>
-        <input type="number" placeholder='0' className=' w-full border-2 border-gray-300 p-2.5 outline-none max-w-25' />
-        </div>
-          <div className="flex items-center gap-3">
-            <label>Course Thubnail</label>
-            <div className="bg-blue-700 text-white p-1.5 rounded shadow">
-            <UploadCloud size={20} className=''/>
-              <input type="file" placeholder='thubnail' className='w-full max-w-25 cursor-pointer' />              
-            </div>
+
+        {/* Price & Thumbnail */}
+        <div className="flex flex-col md:flex-row items-start gap-6">
+          <div className="flex-1">
+            <label htmlFor="price" className="block text-sm font-medium mb-1">Course Price ($)</label>
+            <input
+              id="price"
+              type="number"
+              placeholder="0"
+              className="w-full border border-gray-300 p-3 rounded-md outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Thumbnail Upload */}
+          <div className="flex-1">
+            <label className="block text-sm font-medium mb-1">Course Thumbnail</label>
+            <label
+              htmlFor="thumbnail"
+              className="flex items-center justify-center gap-2 p-3 bg-blue-600 text-white rounded-md cursor-pointer hover:bg-blue-700 transition"
+            >
+              <UploadCloud size={20} />
+              {thumbnail ? thumbnail.name : 'Upload Thumbnail'}
+            </label>
+            <input
+              id="thumbnail"
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleThumbnailChange}
+            />
           </div>
         </div>
-        <button className='bg-blue-500 text-white px-5 py-2 pt-3 text-center rounded shadow-md cursor-pointer hover:bg-blue-700 transition duration-300'>Add Course</button>
+
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white py-3 rounded-md font-semibold hover:bg-blue-600 transition"
+        >
+          Add Course
+        </button>
       </form>
     </div>
-    </>
-  )
-}
+  );
+};
 
-export default AddCourse
+export default AddCourse;

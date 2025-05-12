@@ -26,7 +26,7 @@ const HomeHead = () => {
                 <Search className='text-gray-400'/>
                 <input type="text" placeholder='Search for courses' className='outline-none w-full' />                    
                 </div>
-                <button className='bg-blue-500 text-white px-5 py-2.5'>Search</button>
+                <button className='bg-blue-500 text-white px-5 py-2.5 cursor-pointer hover:bg-blue-600 transition duration-300'>Search</button>
             </div>
         </form>
         {/* logo */}

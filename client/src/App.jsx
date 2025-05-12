@@ -14,6 +14,7 @@ import Dashboard from './components/Dashboard'
 import AddCourse from './pages/courses/AddCourse'
 import MyCourse from './pages/courses/MyCourse'
 import StudentEnrolled from './pages/courses/StudentEnrolled'
+import Contact from './pages/contact/Contact'
 const App = () => {
   return (
     <>
@@ -33,6 +34,7 @@ const App = () => {
           <Route path='/enrolled/my-course' element={<MyCourse/>} /> 
           <Route path='/enrolled/student' element={<StudentEnrolled/>} />
         </Route>
+        <Route path='/contact' element={<Contact/>} />
       </Routes>
     </>
   )
