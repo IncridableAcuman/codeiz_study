@@ -14,7 +14,6 @@ import com.backend.learning.auth.repository.TokenRepository;
 import com.backend.learning.auth.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
-import lombok.var;
 
 @Service
 @RequiredArgsConstructor
@@ -39,12 +38,21 @@ public class AuthService {
         token.setToken(jwt);
         token.setUser(user);
         tokenRepository.save(token);
-
         return new AuthResponse(jwt);
     }
     // user sign In
     public AuthResponse login(AuthRequest request){
+        User user=userRepository.findByEmail(request.getEmail()).orElseThrow(()-> new RuntimeException("User not found"));
+        if(!passwordEncoder.matches(user.getPassword(), request.getPassword())){
+            throw new RuntimeException("Password incorrect!");
+        }
+        String jwt=tokenService.generateToken(user.getEmail());
+        Token token=new Token();
+        token.setToken(jwt);
+        token.setUser(user);
+        tokenRepository.save(token);
 
+        return new AuthResponse(jwt);
     }
     // refresh 
     public AuthResponse refresh(String token){

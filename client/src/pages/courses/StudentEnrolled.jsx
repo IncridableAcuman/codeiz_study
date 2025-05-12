@@ -38,10 +38,7 @@ const StudentEnrolled = () => {
             {data.map((student, index) => (
               <tr key={student.id || index} className="border-t hover:bg-gray-50">
                 <td className="px-4 py-2 text-sm text-gray-600">{index + 1}</td>
-                <div className="flex items-center gap-2">
-                  <img src={student.image} alt="profile image" className='w-10 h-10 rounded-full' />
                 <td className="px-4 py-2 text-sm text-gray-600">{student.name}</td>
-                </div>
                 <td className="px-4 py-2 text-sm text-gray-600">{student.course}</td>
                 <td className="px-4 py-2 text-sm text-gray-600">{student.date}</td>
               </tr>
