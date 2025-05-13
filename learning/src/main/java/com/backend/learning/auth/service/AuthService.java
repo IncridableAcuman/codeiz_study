@@ -1,5 +1,6 @@
 package com.backend.learning.auth.service;
 
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +14,7 @@ import com.backend.learning.auth.model.Token;
 import com.backend.learning.auth.model.User;
 import com.backend.learning.auth.repository.TokenRepository;
 import com.backend.learning.auth.repository.UserRepository;
+import com.backend.learning.exception.BadRequestExceptionHandler;
 
 import lombok.RequiredArgsConstructor;
 
@@ -79,6 +81,9 @@ public class AuthService {
     // sign Out 
     public void logout(String token){
         Token token2=tokenRepository.findByToken(token).orElseThrow(()->new RuntimeException("Token not found"));
+        if(token2.isExpired() || token2.isRevoked()){
+            throw new BadRequestExceptionHandler("Token already expired or revoked");
+        }
         token2.setRevoked(true);
         tokenRepository.save(token2);
     }

@@ -2,10 +2,14 @@ package com.backend.learning.auth.dto;
 
 import java.time.LocalDateTime;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+
+
+@Data
 @RequiredArgsConstructor
 @Getter
 @Setter

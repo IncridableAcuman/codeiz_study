@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,12 +34,12 @@ public class AuthController {
     }
     // refresh
     @GetMapping("/refresh")
-    public ResponseEntity<AuthResponse> refresh(String token){
+    public ResponseEntity<AuthResponse> refresh(@RequestHeader("Authorization") String token){
         return ResponseEntity.ok(authService.refresh(token));
     }
     // logout
     @PostMapping("/logout")
-    public ResponseEntity<String> logout(String token){
+    public ResponseEntity<String> logout(@RequestHeader("Authorization") String token){
         authService.logout(token);
         return ResponseEntity.ok("User logged out");
     }
@@ -49,7 +50,7 @@ public class AuthController {
     }
     // reset password
     @PutMapping("/reset-password")
-    public ResponseEntity<String> resetPassword(@RequestBody String password,String token){
+    public ResponseEntity<String> resetPassword(@RequestBody String password,@RequestHeader("Authorization") String token){
         return ResponseEntity.ok(authService.resetPassword(password, token));
     }
 }
