@@ -25,3 +25,7 @@ spring:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
 
+jwt:
+  access_time: ${JWT_ACCESS_TIME}
+  refresh_time: ${JWT_REFRESH_TIME}
+  secret: ${SECRET}
