@@ -9,5 +9,5 @@ import com.backend.learning.auth.model.User;
 
 public interface TokenRepository extends JpaRepository<Token,Integer> {
     Optional<Token> findByUser(User user);
-    Optional<Token> findByToken(String token);
+    Optional<Token> findByRefreshToken(String refreshToken);
 }

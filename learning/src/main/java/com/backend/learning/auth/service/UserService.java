@@ -40,4 +40,9 @@ public class UserService {
             throw new BadRequestExceptionHandler("Invalid password");
         }
     }
+
+    public User updatUser(User user,String password){
+        user.setPassword(passwordEncoder.encode(password));
+        return userRepository.save(user);
+    }
 }

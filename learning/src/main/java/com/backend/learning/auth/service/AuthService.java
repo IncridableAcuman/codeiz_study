@@ -3,7 +3,7 @@ package com.backend.learning.auth.service;
 
 import java.sql.Date;
 
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.stereotype.Service;
 
 import com.backend.learning.auth.dto.AuthRequest;
@@ -12,7 +12,6 @@ import com.backend.learning.auth.dto.RegisterRequest;
 import com.backend.learning.auth.model.Token;
 import com.backend.learning.auth.model.User;
 import com.backend.learning.auth.repository.TokenRepository;
-import com.backend.learning.auth.repository.UserRepository;
 import com.backend.learning.exception.BadRequestExceptionHandler;
 import com.backend.learning.exception.ResourceNotFoundException;
 
@@ -23,23 +22,21 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthService {
     // 
-    private final UserRepository userRepository;
     private final TokenRepository tokenRepository;
     private final TokenService tokenService;
     private final MailService mailService;
     private final CookieService cookieService;
     private final UserService userService;
-    @Value("${access_time}")
-    private long accessTime;
-    @Value("${refresh_time}")
-    private long refreshTime;
+    private static final long accessTime=900000;
+
+    private static final long refreshTime=604800000;
 
     // user sign Up
     public AuthResponse register(RegisterRequest request,HttpServletResponse response){
         userService.existUser(request.getEmail());
         User user=userService.createUser(request);
         userService.matchesPassword(request.getPassword(), user.getPassword());
-        String refreshToken=tokenService.generateToken(user, accessTime);
+        String refreshToken=tokenService.generateToken(user, refreshTime);
         Token token=new Token();
         token.setUser(user);
         token.setRefreshToken(refreshToken);
@@ -70,7 +67,7 @@ public class AuthService {
         token.getRefreshToken());
     }
     // refresh
-    public AuthResponse refresh(String refreshToken){
+    public AuthResponse refresh(String refreshToken,HttpServletResponse response){
         tokenService.existToken(refreshToken);
         if(!tokenService.validateToken(refreshToken)){
             throw new BadRequestExceptionHandler("Invalid token");
@@ -83,7 +80,7 @@ public class AuthService {
         }
         User user=userService.findUser(email);
         Token token=tokenRepository.findByUser(user).orElseThrow(()->new ResourceNotFoundException("User not found"));
-        if(token.getRefreshToken().equals(refreshToken)){
+        if(!token.getRefreshToken().equals(refreshToken)){
             throw new BadRequestExceptionHandler("Token is mismatch");
         }
         String accessTokenNew=tokenService.generateToken(user, accessTime);
@@ -92,10 +89,39 @@ public class AuthService {
         token.setRefreshToken(refreshTokenNew);
         token.setExpiryDate(new Date(System.currentTimeMillis()+refreshTime));
         tokenRepository.save(token);
-        cookieService.addTokenToCookie(null, refreshTokenNew);
+        cookieService.addTokenToCookie(response, refreshTokenNew);
         return new AuthResponse(user.getId(),
         user.getUsername(),user.getEmail(),
         user.getRole(),accessTokenNew,
         refreshTokenNew);
+    }
+    public void logout(String refreshToken){
+        Token token=tokenService.findToken(refreshToken);
+        tokenRepository.delete(token);
+    }
+    // fogot password
+    public String forgotPassword(String email){
+        if(email==null || email.isEmpty()){
+            throw new BadRequestExceptionHandler("Email is error or not requied");
+        }
+        User user=userService.findUser(email);
+        String refreshToken=tokenService.generateToken(user, accessTime);
+        String resetLink="http://localhost:5173/reset-password?refreshToken=";
+        mailService.sendMail(user.getEmail(), "Forgot Password", resetLink+refreshToken);
+        return "Reset Password link sent to your email";
+    }
+    // reset password
+    public String resetPassword(String password,String refreshToken){
+        if(password==null || password.isEmpty() || refreshToken==null || refreshToken.isEmpty()){
+            throw new BadRequestExceptionHandler("All fields are required");
+        }
+        boolean userPayload=tokenService.validateToken(refreshToken);
+        if(!userPayload){
+            throw new BadRequestExceptionHandler("Invalid token");
+        }
+        Token token=tokenService.findToken(refreshToken);
+        User user=token.getUser();
+        userService.updatUser(user, password);
+        return "Password reseted successfully";
     }
 }

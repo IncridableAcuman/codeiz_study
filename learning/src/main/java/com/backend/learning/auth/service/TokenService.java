@@ -7,31 +7,32 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.backend.learning.auth.model.Token;
 import com.backend.learning.auth.model.User;
+import com.backend.learning.auth.repository.TokenRepository;
 import com.backend.learning.exception.BadRequestExceptionHandler;
+import com.backend.learning.exception.ResourceNotFoundException;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class TokenService {
-    @Value("${secret}")
-    private String secretKey;
+    private final TokenRepository tokenRepository;
+    private static final String secretKey=Base64.getEncoder().encodeToString("uzbekistanrepubliccoders2025".getBytes(StandardCharsets.UTF_8));
 
-    @Value("${access_time}")
-    private long accessTime;
+    private static final long accessTime=900000;
 
-    @Value("${refresh_time}")
-    private long refreshTime;
+    private static final long refreshTime=604800000;
 
 
     // key generatsiya qilish.
     public Key getSigningKey(){
-        secretKey=Base64.getEncoder().encodeToString(secretKey.getBytes(StandardCharsets.UTF_8));
         return Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
     }
     // generate token
@@ -90,4 +91,13 @@ public class TokenService {
             throw new BadRequestExceptionHandler("Token is missing!");
         }
     }
+    public Token findToken(String refreshToken){
+        return tokenRepository.findByRefreshToken(refreshToken).orElseThrow(()->new ResourceNotFoundException("Token invalid"));
+    }
+    // 
+//     @Scheduled(cron = "0 0 0 * * ?")
+// public void cleanExpiredTokens() {
+//     tokenRepository.deleteAllByExpiryDateBefore(new Date(System.currentTimeMillis()));
+// }
+
 }
