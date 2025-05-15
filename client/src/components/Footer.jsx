@@ -13,7 +13,7 @@ const Footer = () => {
         <div className="pt-8">
           <h1 className='text-md font-bold pb-5 text-center'>Subscribe to getter our Newletter</h1>
           <form>
-            <div className="flex items-center gap-5  w-full">
+            <div className="flex flex-col sm:flex-row items-center gap-5  w-full">
               <input type="email" className=' border-2 border-gray-200 outline-none px-8  py-2 rounded-full' placeholder='Enter your Email' />
               <button className='bg-stone-400 px-5 cursor-pointer shadow-lg py-2 rounded-full'>Subscribe</button>
             </div>

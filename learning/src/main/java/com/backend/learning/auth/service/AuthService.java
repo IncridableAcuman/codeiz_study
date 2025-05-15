@@ -84,16 +84,15 @@ public class AuthService {
             throw new BadRequestExceptionHandler("Token is mismatch");
         }
         String accessTokenNew=tokenService.generateToken(user, accessTime);
-        String refreshTokenNew=tokenService.generateToken(user, refreshTime);
-        token.setUser(user);
-        token.setRefreshToken(refreshTokenNew);
-        token.setExpiryDate(new Date(System.currentTimeMillis()+refreshTime));
-        tokenRepository.save(token);
-        cookieService.addTokenToCookie(response, refreshTokenNew);
+        // token.setUser(user);
+        // token.setRefreshToken(refreshToken);
+        // token.setExpiryDate(new Date(System.currentTimeMillis()+refreshTime));
+        // tokenRepository.save(token);
+        cookieService.addTokenToCookie(response, refreshToken);
         return new AuthResponse(user.getId(),
         user.getUsername(),user.getEmail(),
         user.getRole(),accessTokenNew,
-        refreshTokenNew);
+        refreshToken);
     }
     public void logout(String refreshToken){
         Token token=tokenService.findToken(refreshToken);

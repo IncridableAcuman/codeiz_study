@@ -17,7 +17,8 @@ const Navbar = () => {
           <a href="/courses" className="hover:text-gray-400 transition">Courses</a>
           <a href="/career" className="hover:text-gray-400 transition">Careers</a>
           <a href="/blog" className="hover:text-gray-400 transition">Blog</a>
-          <a href="/about" className="hover:text-gray-400 transition">About Us</a>
+          <a href="/about" className="hover:text-gray-400 transition">Enrolled</a>
+          <a href="/enrolled" className="hover:text-gray-400 transition">Enrolled</a>
           <EllipsisVertical className="cursor-pointer text-gray-400 hover:text-black transition" />
         </div>
 
@@ -39,6 +40,7 @@ const Navbar = () => {
           <a href="/career" className="block hover:text-gray-500">Careers</a>
           <a href="/blog" className="block hover:text-gray-500">Blog</a>
           <a href="/about" className="block hover:text-gray-500">About Us</a>
+          <a href="/enrolled" className="block hover:text-gray-500">Enrolled</a>
         </div>
       )}
     </div>
