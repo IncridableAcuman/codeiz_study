@@ -86,8 +86,8 @@ public class TokenService {
 
     // isToken
     public void existToken(String refreshToken){
-        if(refreshToken.isEmpty()){
-            throw new BadRequestExceptionHandler("Token is exist");
+        if(refreshToken==null || refreshToken.isEmpty()){
+            throw new BadRequestExceptionHandler("Token is missing!");
         }
     }
 }
