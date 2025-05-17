@@ -42,5 +42,8 @@ public class Course implements Serializable {
     private Double price;
 
     @Column(nullable = false)
+    private Category category;
+
+    @Column(nullable = false)
     private String videoUrl;
 }
