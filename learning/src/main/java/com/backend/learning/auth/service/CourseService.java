@@ -59,8 +59,7 @@ public class CourseService {
     }
     // get all courses
     public List<Course> getAllCourses(){
-        List<Course> courses=courseRepository.findAll();
-        return courses;
+        return courseRepository.findAll();
     }
     // update a course
     public CourseResponse updateCourse(Long id,Course course){

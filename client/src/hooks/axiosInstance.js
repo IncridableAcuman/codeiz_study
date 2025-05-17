@@ -11,6 +11,7 @@ axiosInstance.interceptors.request.use(
         if(token){
             config.headers['Authorization']=`Bearer ${token}`;
         }
+        return config;
     }
 );
 // response
@@ -28,8 +29,11 @@ async error=>{
         } catch (error) {
             console.log(error);
             localStorage.removeItem("accessToken");
-            window.location.href="/auth"
+            window.location.href="/auth";
+            return Promise.reject(error);
         }
     }
+    return Promise.reject(error);
 }
 );
+export default axiosInstance;

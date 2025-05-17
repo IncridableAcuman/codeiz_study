@@ -1,24 +1,49 @@
 import React, { useState } from 'react'
 import {Lock, Mail, User} from 'lucide-react'
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify'
+import axiosInstance from '../../../hooks/axiosInstance'
 const Login = () => {
   const [isLogin,setIsLogin]=useState(true);
   const [username,setUsername]=useState("");
   const [email,setEmail]=useState("");
   const [password,setPassword]=useState("");
   const navigate=useNavigate();
+  const handleSubmit=async (e)=>{
+    e.preventDefault();
+    if(!isLogin){
+      try {
+        const {data}=await axiosInstance.post("/auth/register",{username,email,password});
+        localStorage.setItem("accessToken",data.accessToken);
+        navigate("/");
+      } catch (error) {
+        console.log(error);
+        toast.error("Something went wrong");
+      }
+
+    } else{
+      try {
+        const {data}=await axiosInstance.post("/auth/login",{email,password});
+        localStorage.setItem("accessToken",data.accessToken);
+        navigate("/");
+      } catch (error) {
+        console.log(error);
+        toast.error("Something went wrong");
+      }
+    }
+  }
   return (
     <>
     <div className="bg-image w-full min-h-screen  flex flex-col items-center justify-center p-3">
       <div className="bg-white w-full max-w-md rounded shadow-lg p-6">
         <div className="">
           <h1 className='text-3xl font-bold text-center mb-3'>{isLogin ? "Sign In" : "Sign Up"}</h1>
-          <form className='space-y-4'>
+          <form className='space-y-4' onSubmit={handleSubmit}>
             {/* username */}
             {!isLogin && (
               <div className="flex items-center gap-2 p-2.5 border-2 border-gray-300">
             <User className='text-gray-400'/>
-             <input type="texr" placeholder='Username' 
+             <input type="text" placeholder='Username' 
              className='outline-none w-full'
               value={username} onChange={(e)=>setUsername(e.target.value)} />              
             </div>
@@ -40,7 +65,7 @@ const Login = () => {
               <p>Remember me</p>
             </div>
             <button className='w-full mb-3 mx-auto bg-gray-800 text-white p-2.5 cursor-pointer 
-            shadow-md rounded hover:bg-gray-950 transition duration-300'>Sign In</button>
+            shadow-md rounded hover:bg-gray-950 transition duration-300'>{isLogin ? "Sign In":"Sign Up"}</button>
           </form>
           <p className='mt-3 text-center underline cursor-pointer hover:text-gray-500' onClick={()=>navigate("/forgot-password")}>Forgot your Password?</p>
           <div className="flex items-center gap-2 w-full mt-3">

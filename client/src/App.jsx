@@ -15,9 +15,11 @@ import AddCourse from './pages/courses/AddCourse'
 import MyCourse from './pages/courses/MyCourse'
 import StudentEnrolled from './pages/courses/StudentEnrolled'
 import Contact from './pages/contact/Contact'
+import {ToastContainer} from 'react-toastify'
 const App = () => {
   return (
     <>
+    <ToastContainer className="right-bottom"/>
       <Routes>
         <Route path='/landing' element={<Landing/>} />
         <Route path='/' element={<Home/>} />

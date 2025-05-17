@@ -1,10 +1,24 @@
 import React, { useState } from 'react';
 import { EllipsisVertical, Menu, X } from 'lucide-react';
+import axiosInstance from '../hooks/axiosInstance';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleMobileMenu = () => setIsOpen(!isOpen);
+  const navigate=useNavigate();
+
+  const handleSubmit=async ()=>{
+     try {
+        await axiosInstance.post("/auth/logout");
+        localStorage.removeItem("accessToken");
+        navigate("/landing");
+      } catch (error) {
+        console.log(error);
+        toast.error("Something went wrong");
+      }
+  }
 
   return (
     <div className="w-full bg-gradient-to-br from-gray-100 via-slate-200 to-gray-200 border-b sticky top-0 z-40">
@@ -17,9 +31,10 @@ const Navbar = () => {
           <a href="/courses" className="hover:text-gray-400 transition">Courses</a>
           <a href="/career" className="hover:text-gray-400 transition">Careers</a>
           <a href="/blog" className="hover:text-gray-400 transition">Blog</a>
-          <a href="/about" className="hover:text-gray-400 transition">Enrolled</a>
+          <a href="/about" className="hover:text-gray-400 transition">About</a>
           <a href="/enrolled" className="hover:text-gray-400 transition">Enrolled</a>
-          <EllipsisVertical className="cursor-pointer text-gray-400 hover:text-black transition" />
+          <EllipsisVertical className="cursor-pointer text-gray-400 hover:text-black transition"
+           onClick={handleSubmit}  />
         </div>
 
         {/* Mobile Menu Button */}
