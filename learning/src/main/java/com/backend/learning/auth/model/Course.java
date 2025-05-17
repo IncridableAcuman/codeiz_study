@@ -2,7 +2,6 @@ package com.backend.learning.auth.model;
 
 import java.io.Serializable;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,23 +26,17 @@ public class Course implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
     @Size(min = 2,max = 100)
     private String title;
 
-    @Column(nullable = false)
     @Size(min = 10,max = 2000)
     private String description;
 
-    @Column(nullable = false)
     private String courseImage;
 
-    @Column(nullable = false)
     private Double price;
 
-    @Column(nullable = false)
-    private Category category;
+    private String category;
 
-    @Column(nullable = false)
     private String videoUrl;
 }

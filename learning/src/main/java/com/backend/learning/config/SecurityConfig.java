@@ -24,7 +24,7 @@ public class SecurityConfig {
      @Bean // api so'rovlarini filter qilish yani ixtiyoriy portdan so'rov yubormaslik uchun
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
             httpSecurity.csrf(csrf->csrf.disable())
-            .authorizeHttpRequests(auth->auth.requestMatchers("/api/auth/**","/api/quizz/**").permitAll().anyRequest().authenticated()
+            .authorizeHttpRequests(auth->auth.requestMatchers("/api/auth/**","/api/courses/**").permitAll().anyRequest().authenticated()
             )
             // .oauth2Login(oauth2->oauth2
             // .defaultSuccessUrl("/api/auth/hello")

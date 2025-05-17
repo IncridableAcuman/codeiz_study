@@ -3,7 +3,6 @@ package com.backend.learning.auth.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,13 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.learning.auth.dto.CourseRequest;
 import com.backend.learning.auth.dto.CourseResponse;
-import com.backend.learning.auth.model.Category;
 import com.backend.learning.auth.model.Course;
 import com.backend.learning.auth.service.CourseService;
 
 import lombok.RequiredArgsConstructor;
 
-@Controller
 @RestController
 @RequestMapping("/api/courses")
 @RequiredArgsConstructor
@@ -40,10 +37,11 @@ public class CourseController {
     }
     // get a course by category;
     @GetMapping("/course/categories/{category}")
-    public ResponseEntity<CourseResponse> getCourseByCategory(@PathVariable Category category){
+    public ResponseEntity<CourseResponse> getCourseByCategory(@PathVariable String category){
         return ResponseEntity.ok(courseService.getCourseByCategory(category));
     }
     // get all course
+    @GetMapping("/all")
     public ResponseEntity<List<Course>> getAllCourses(){
         return ResponseEntity.ok(courseService.getAllCourses());
     }

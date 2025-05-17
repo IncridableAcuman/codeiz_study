@@ -1,7 +1,5 @@
 package com.backend.learning.auth.dto;
 
-import com.backend.learning.auth.model.Category;
-
 import lombok.Data;
 
 @Data
@@ -11,10 +9,10 @@ public class CourseResponse {
     private String description;
     private String courseImage;
     private Double price;
-    private Category category;
+    private String category;
     private String videoUrl;
 
-    public CourseResponse(Long id,String title,String description,String courseImage,Double price,Category category,String videoUrl){
+    public CourseResponse(Long id,String title,String description,String courseImage,Double price,String category,String videoUrl){
         this.id=id;
         this.title=title;
         this.description=description;

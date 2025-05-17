@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.backend.learning.auth.dto.CourseRequest;
 import com.backend.learning.auth.dto.CourseResponse;
-import com.backend.learning.auth.model.Category;
 import com.backend.learning.auth.model.Course;
 import com.backend.learning.auth.repository.CourseRepository;
 import com.backend.learning.exception.BadRequestExceptionHandler;
@@ -24,6 +23,7 @@ public class CourseService {
         Course course=new Course();
         course.setTitle(request.getTitle());
         course.setDescription(request.getDescription());
+        course.setCourseImage(request.getCourseImage());
         course.setPrice(request.getPrice());
         course.setCategory(request.getCategory());
         course.setVideoUrl(request.getVideoUrl());
@@ -46,7 +46,7 @@ public class CourseService {
          course.getCategory(), course.getVideoUrl());
     }
     // get a course by category
-    public CourseResponse getCourseByCategory(Category category){
+    public CourseResponse getCourseByCategory(String category){
         if(category==null){
             throw new BadRequestExceptionHandler("Course id is required");
         }
@@ -71,16 +71,15 @@ public class CourseService {
         course2.setPrice(course.getPrice());
         course2.setVideoUrl(course.getVideoUrl());
         courseRepository.save(course2);
-        return new CourseResponse(course.getId(), 
-        course.getTitle(), course.getDescription(),
-         course.getCourseImage(), course.getPrice(),
-         course.getCategory(), course.getVideoUrl());
+        return new CourseResponse(course2.getId(), 
+        course2.getTitle(), course2.getDescription(),
+         course2.getCourseImage(), course2.getPrice(),
+         course2.getCategory(), course2.getVideoUrl());
     }
     // delete a course by id
     public void deleteCourse(Long id){
         Course course=courseRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Course not found"));
-        if(course.getId()>0){
         courseRepository.delete(course);            
-        }
+
     }
 }
