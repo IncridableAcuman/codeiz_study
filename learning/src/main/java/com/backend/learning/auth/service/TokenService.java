@@ -54,26 +54,26 @@ public class TokenService {
         return tokens;
     }
     // validate token
-    public boolean validateToken(String token){
+    public boolean validateToken(String refreshToken){
         try {
            Jwts
                 .parserBuilder()
                 .setSigningKey(getSigningKey())
                 .build()
-                .parseClaimsJws(token);
+                .parseClaimsJws(refreshToken);
             return true; 
         } catch (Exception e) {
             return false;
         }
     }
     // extract email
-    public String extractEmail(String token){
+    public String extractEmail(String refreshToken){
         return
                 Jwts
                     .parserBuilder()
                     .setSigningKey(getSigningKey())
                     .build()
-                    .parseClaimsJws(token)
+                    .parseClaimsJws(refreshToken)
                     .getBody()
                     .getSubject();
     }
