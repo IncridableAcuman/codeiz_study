@@ -26,7 +26,8 @@ public class SecurityConfig {
             httpSecurity
             .cors(Customizer.withDefaults())
             .csrf(csrf->csrf.disable())
-            .authorizeHttpRequests(auth->auth.requestMatchers("/api/auth/**","/api/courses/**").permitAll().anyRequest().authenticated()
+            .authorizeHttpRequests(auth->auth.requestMatchers("/api/auth/**").permitAll()
+            .anyRequest().authenticated()
             )
             // .oauth2Login(oauth2->oauth2
             // .defaultSuccessUrl("/api/auth/hello")

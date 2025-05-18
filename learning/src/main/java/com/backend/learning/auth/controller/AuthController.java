@@ -3,11 +3,11 @@ package com.backend.learning.auth.controller;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,14 +37,12 @@ public class AuthController {
     }
     // refresh
     @GetMapping("/refresh")
-    public ResponseEntity<AuthResponse> refresh(@RequestHeader("Authorization") String authorization,HttpServletResponse response){
-        String refreshToken=authorization.substring(7);
+    public ResponseEntity<AuthResponse> refresh(@CookieValue(name = "refreshToken",required = false) String refreshToken,HttpServletResponse response){
         return ResponseEntity.ok(authService.refresh(refreshToken,response));
     }
     // logout
     @PostMapping("/logout")
-    public ResponseEntity<String> logout(@RequestHeader("Authorization") String authorization,HttpServletResponse response){
-        String refreshToken=authorization.substring(7);
+    public ResponseEntity<String> logout(@CookieValue(value = "refreshToken",required = false) String refreshToken,HttpServletResponse response){
         authService.logout(refreshToken);
         return ResponseEntity.ok("User logged out");
     }

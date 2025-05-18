@@ -95,8 +95,7 @@ public class AuthService {
         refreshToken);
     }
     public void logout(String refreshToken){
-        Token token=tokenService.findToken(refreshToken);
-        tokenRepository.delete(token);
+        tokenRepository.findByRefreshToken(refreshToken).ifPresent(tokenRepository::delete);
     }
     // fogot password
     public String forgotPassword(String email){

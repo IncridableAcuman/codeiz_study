@@ -7,10 +7,12 @@ const axiosInstance=axios.create({
 // request
 axiosInstance.interceptors.request.use(
     config=>{
-        const token=localStorage.getItem("accessToken");
+        if(config.url!=="/auth/logout"){
+         const token=localStorage.getItem("accessToken");
         if(token){
             config.headers['Authorization']=`Bearer ${token}`;
-        }
+        }   
+        }   
         return config;
     }
 );
@@ -19,7 +21,7 @@ axiosInstance.interceptors.response.use(
 config=>config,
 async error=>{
     const originalRequest=error.config;
-    if(error?.response?.data?.status==403 && !originalRequest._retry){
+    if(error?.response?.data?.status==403 && !originalRequest._retry && originalRequest.url !== '/auth/logout'){
         originalRequest._retry=true;
         try {
             const {data}=await axiosInstance.get("/auth/refresh");
@@ -29,7 +31,7 @@ async error=>{
         } catch (error) {
             console.log(error);
             localStorage.removeItem("accessToken");
-            window.location.href="/auth";
+            window.location.href="/landing";
             return Promise.reject(error);
         }
     }

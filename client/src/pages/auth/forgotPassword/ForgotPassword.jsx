@@ -2,6 +2,10 @@ import {useState} from 'react'
 import {Mail,Send} from 'lucide-react'
 const ForgotPassword = () => {
   const [email,setEmail]=useState("");
+
+  const handleSubmit=async (e)=>{
+    la
+  }
   return (
     <>
     <div className="bg-image w-full min-h-screen flex flex-col items-center justify-center">

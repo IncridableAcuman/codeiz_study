@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {Lock, Mail, User} from 'lucide-react'
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify'
@@ -15,6 +15,7 @@ const Login = () => {
       try {
         const {data}=await axiosInstance.post("/auth/register",{username,email,password});
         localStorage.setItem("accessToken",data.accessToken);
+        toast.success("Welcome to codeiz");
         navigate("/");
       } catch (error) {
         console.log(error);
@@ -25,6 +26,7 @@ const Login = () => {
       try {
         const {data}=await axiosInstance.post("/auth/login",{email,password});
         localStorage.setItem("accessToken",data.accessToken);
+        toast.success("Welcome to codeiz");
         navigate("/");
       } catch (error) {
         console.log(error);
@@ -32,6 +34,11 @@ const Login = () => {
       }
     }
   }
+  useEffect(()=>{
+    if(localStorage.getItem("accessToken")){
+      navigate("/");
+    }
+  },[navigate]);
   return (
     <>
     <div className="bg-image w-full min-h-screen  flex flex-col items-center justify-center p-3">

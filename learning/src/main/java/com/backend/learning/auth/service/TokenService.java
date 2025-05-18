@@ -13,7 +13,6 @@ import com.backend.learning.auth.model.Token;
 import com.backend.learning.auth.model.User;
 import com.backend.learning.auth.repository.TokenRepository;
 import com.backend.learning.exception.BadRequestExceptionHandler;
-import com.backend.learning.exception.ResourceNotFoundException;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -92,7 +91,7 @@ public class TokenService {
         }
     }
     public Token findToken(String refreshToken){
-        return tokenRepository.findByRefreshToken(refreshToken).orElseThrow(()->new ResourceNotFoundException("Token invalid"));
+        return tokenRepository.findByRefreshToken(refreshToken).orElseThrow(()->new RuntimeException("Token invalid"));
     }
     // 
 //     @Scheduled(cron = "0 0 0 * * ?")

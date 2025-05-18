@@ -13,6 +13,7 @@ const Navbar = () => {
      try {
         await axiosInstance.post("/auth/logout");
         localStorage.removeItem("accessToken");
+        toast.success("Logged out");
         navigate("/landing");
       } catch (error) {
         console.log(error);
