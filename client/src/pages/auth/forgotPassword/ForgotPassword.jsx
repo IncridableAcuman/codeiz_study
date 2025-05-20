@@ -12,7 +12,7 @@ const ForgotPassword = () => {
       await axiosInstance.post("/auth/forgot-password",{email});
       toast.success("Link sent to your email");
     } catch (error) {
-      console.log(error);
+      console.log(error?.message);
       toast.error(error?.response?.data?.message);
     }
   }

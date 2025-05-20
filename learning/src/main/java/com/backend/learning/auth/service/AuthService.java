@@ -2,8 +2,6 @@ package com.backend.learning.auth.service;
 
 
 import java.sql.Date;
-
-
 import org.springframework.stereotype.Service;
 
 import com.backend.learning.auth.dto.AuthRequest;
@@ -113,6 +111,7 @@ public class AuthService {
         if(password==null || password.isEmpty() || refreshToken==null || refreshToken.isEmpty()){
             throw new BadRequestExceptionHandler("All fields are required");
         }
+        
         boolean userPayload=tokenService.validateToken(refreshToken);
         if(!userPayload){
             throw new BadRequestExceptionHandler("Invalid token");

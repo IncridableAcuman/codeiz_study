@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import LandingHeader from './LandingHeader'
 import LandingContent from './LandingContent'
 import LandingSuccess from './LandingSuccess'
@@ -6,7 +6,14 @@ import LandingSoftware from './LandingSoftware'
 import LandingInfo from './LandingInfo'
 import LandingFuture from './LandingFuture'
 import Footer from '../../components/Footer'
+import { useNavigate } from 'react-router-dom'
 const Landing = () => {
+  const navigate=useNavigate();
+  useEffect(()=>{
+    if(localStorage.getItem("accessToken")){
+      navigate("/");
+    }
+  },[navigate]);
   return (
     <>
   <div className="w-full h-[100vh] bg-imageLading text-white">
